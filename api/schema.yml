@@ -1,0 +1,92 @@
+openapi: 3.0.3
+info:
+  title: Tintin API
+  version: 1.0.0
+paths:
+  /tintins:
+    get:
+      summary: Get all Tintins
+      responses:
+        '200':
+          description: List of Tintins
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tintin'
+    post:
+      summary: Create a new Tintin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tintin'
+      responses:
+        '201':
+          description: Tintin created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tintin'
+
+  /tintins/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get a Tintin by ID
+      responses:
+        '200':
+          description: Tintin found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tintin'
+        '404':
+          description: Tintin not found
+    put:
+      summary: Update a Tintin by ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tintin'
+      responses:
+        '200':
+          description: Tintin updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tintin'
+        '404':
+          description: Tintin not found
+    delete:
+      summary: Delete a Tintin by ID
+      responses:
+        '204':
+          description: Tintin deleted
+        '404':
+          description: Tintin not found
+
+components:
+  schemas:
+    Tintin:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        occupation:
+          type: string
+        age:
+          type: integer
+      required:
+        - id
+        - name
